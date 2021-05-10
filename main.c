@@ -1,4 +1,4 @@
-#include <msp430.h> 
+#include "main.h"
 
 
 /**
@@ -10,3 +10,5 @@ int main(void)
 	
 	return 0;
 }
+
+
