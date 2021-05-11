@@ -8,6 +8,8 @@
 #ifndef ELEC327_FINAL_HELPER_H_
 #define ELEC327_FINAL_HELPER_H_
 
+#include "onewire.h"
 
+onewire_t * wire_init();
 
 #endif /* ELEC327_FINAL_HELPER_H_ */

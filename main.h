@@ -12,19 +12,21 @@
 #include "lcdctrl.h"
 #include "buzzerctrl.h"
 #include "helper.h"
+#include "onewire.h" // Found it
+#include "delay.h"
 
-#include <onewire.h>
 #include <msp430.h>
+#include <stdint.h>
 
-#define TEMPPIN         PIN1
-#define MOSFETPIN       PIN2
-#define SCLPIN          PIN6
-#define SDAPIN          PIN7
+#define TEMPPIN         BIT1
+#define MOSFETPIN       BIT2
+#define SCLPIN          BIT6
+#define SDAPIN          BIT7
 
-#define BUT1PIN         PIN0
-#define BUT2PIN         PIN2
-#define BUT3PIN         PIN3
-#define BUT4PIN         PIN4
+#define BUT1PIN         BIT0
+#define BUT2PIN         BIT2
+#define BUT3PIN         BIT3
+#define BUT4PIN         BIT4
 
 
 #endif /* ELEC327_FINAL_MAIN_H_ */
