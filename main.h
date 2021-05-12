@@ -8,7 +8,7 @@
 #ifndef ELEC327_FINAL_MAIN_H_
 #define ELEC327_FINAL_MAIN_H_
 
-#include "tempfuncs.h"
+//#include "tempfuncs.h"
 #include "lcdctrl.h"
 #include "buzzerctrl.h"
 #include "helper.h"

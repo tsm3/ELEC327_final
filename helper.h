@@ -12,6 +12,6 @@
 
 onewire_t * wire_init();
 void uart_init();
-
+void temp_init();
 
 #endif /* ELEC327_FINAL_HELPER_H_ */

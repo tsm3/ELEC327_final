@@ -6,6 +6,20 @@
  */
 #include "main.h"
 
+void gen_init() {
+    _enable_interrupts();
+    wdt_init();
+    uart_init();
+    temp_init();
+
+    DCOCTL = 0;                 // Select lowest DCOx and MODx settings -> 16MHz
+    BCSCTL1 = CALBC1_16MHZ;     // Set range
+    DCOCTL = CALDCO_16MHZ;      // Set DCO step + modulation */
+    BCSCTL3 |= LFXT1S_2;        // ACLK = VLO
+    BCSCTL2 |= DIVS_0;          // This makes SMCLK run at 16 MHz!!
+
+}
+
 onewire_t * wire_init() {
     onewire_t *ow;
     ow->port_out    = P1OUT;
@@ -14,6 +28,18 @@ onewire_t * wire_init() {
     ow->port_dir    = P1DIR;
     ow->pin         = BIT1;
     return (ow);
+}
+
+void wdt_init() {
+    BCSCTL3 |= LFXT1S_2;     // ACLK = VLO ->
+    WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
+    WDTCTL = WDT_ADLY_1000;    // WDT 1000ms (~43.3ms since clk 12khz), ACLK, interval timer
+    IE1 |= WDTIE;            // Enable WDT interrupt
+
+}
+
+void temp_init() {
+    P1DIR &= ~TEMPPIN; // Set this to be 0 for INPUT
 }
 
 void uart_init()
