@@ -11,5 +11,7 @@
 #include "onewire.h"
 
 onewire_t * wire_init();
+void uart_init();
+
 
 #endif /* ELEC327_FINAL_HELPER_H_ */

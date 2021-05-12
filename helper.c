@@ -16,7 +16,7 @@ onewire_t * wire_init() {
     return (ow);
 }
 
-void uart_setup()
+void uart_init()
 {
   P1SEL = BIT1; // If P1SEL and P1SEL2 are 1, pin 1 function is either "UCA0RXD" or "UCA0SOMI", as per page 43 (not sure which)
   P1SEL2 = BIT1; // ^^
