@@ -8,10 +8,13 @@
 #ifndef ELEC327_FINAL_HELPER_H_
 #define ELEC327_FINAL_HELPER_H_
 
-#include "onewire.h"
 
-onewire_t * wire_init();
-void uart_init();
+void wdt_init();
+void gen_init();
+
+void init_buttons();
 void temp_init();
+
+float ADC_to_temp(float adc_val);
 
 #endif /* ELEC327_FINAL_HELPER_H_ */

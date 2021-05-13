@@ -28,5 +28,8 @@ uint8_t onewire_read_byte(onewire_t *ow);
 void onewire_line_low(onewire_t *ow);
 void onewire_line_high(onewire_t *ow);
 void onewire_line_release(onewire_t *ow);
+void uart_init();
+void onewire_copy_scratchpad(onewire_t *ow, uint8_t scratchpad[9]);
+onewire_t * wire_init();
 
 #endif

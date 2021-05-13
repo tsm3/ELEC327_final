@@ -20,14 +20,12 @@ void gen_init() {
 
 }
 
-onewire_t * wire_init() {
-    onewire_t *ow;
-    ow->port_out    = P1OUT;
-    ow->port_in     = P1IN;
-    ow->port_ren    = P1REN;
-    ow->port_dir    = P1DIR;
-    ow->pin         = BIT1;
-    return (ow);
+void temp_init() {
+    P1DIR &= ~TEMPPIN; // Set this to be 0 for INPUT
+}
+
+float ADC_to_temp(float adc_val) {
+    return ((adc_val * 2.5)/(1023*.00355) - 277.75);
 }
 
 void wdt_init() {
@@ -35,22 +33,17 @@ void wdt_init() {
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
     WDTCTL = WDT_ADLY_1000;    // WDT 1000ms (~43.3ms since clk 12khz), ACLK, interval timer
     IE1 |= WDTIE;            // Enable WDT interrupt
-
 }
 
-void temp_init() {
-    P1DIR &= ~TEMPPIN; // Set this to be 0 for INPUT
+
+
+void init_buttons() {
+    P2DIR &= ~(BIT0 + BIT1 + BIT2); // set to input
+    P2REN = BIT0 + BIT1 + BIT2; // enable pullup/down resistors
+    P2OUT = BIT0 + BIT1 + BIT2; // set resistors to pull up
+    P2IES = BIT0 + BIT1 + BIT2; // listen for high to low transitions
+    P2IFG &=  ~(BIT0 + BIT1 + BIT2); // clear any pending interrupts
+    P2IE = BIT0 + BIT1 + BIT2; // enable interrupts for these pins
 }
 
-void uart_init()
-{
-  P1SEL = BIT1; // If P1SEL and P1SEL2 are 1, pin 1 function is either "UCA0RXD" or "UCA0SOMI", as per page 43 (not sure which)
-  P1SEL2 = BIT1; // ^^
-  P1DIR &= ~ BIT1;
-  UCA0CTL1 |= UCSSEL_2;                     // USCI A set to SMCLK
-  UCA0BR0 = 0x41;                            // 8MHz 9600 // this is specifically for USCI_A0 baud rate setting
-  UCA0BR1 = 0x03;                              // 8MHz 9600 // this is specifically for USCI_A0 baud rate setting
-  UCA0MCTL = UCBRS0;                        // Modulation UCBRSx = 1
-  UCA0CTL1 &= ~UCSWRST;                     // Clear the Reset bit so that it activates
-}
 
